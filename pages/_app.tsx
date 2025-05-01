@@ -12,7 +12,7 @@ export default function App(properties: AppProps) {
   return (
     <html>
       <Head>
-        <title>App</title>
+        <title>RODRIGUES, Samuel do Prado</title>
       </Head>
       <body>
         <main>
