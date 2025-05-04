@@ -1,18 +1,34 @@
-const path = require('path');
+import { NextConfig } from 'next';
 
-module.exports = {
+import path from 'path';
+
+const productionEnv: boolean = 'production' === process.env.NODE_ENV;
+
+const repository: string = 'portfolio';
+
+const nextConfig: NextConfig = {
+  assetPrefix: productionEnv ? `/${repository}` : '',
+  basePath: productionEnv ? `/${repository}` : '',
   images: {
     remotePatterns: [
-      new URL('https://avatars.githubusercontent.com/u/86676526?v=4')
+      {
+        protocol: 'https',
+        hostname: 'avatars.githubusercontent.com',
+        pathname: '/u/86676526**',
+      },
     ],
     unoptimized: true,
   },
   output: 'export',
   webpack: (config) => {
-    config.resolve.alias['@styles'] = path.join(__dirname, 'source/styles');
-
-    config.resolve.alias['@components'] = path.join(__dirname, 'source/components');
+    config.resolve.alias = {
+      ...(config.resolve.alias || {}),
+      '@components': path.join(__dirname, 'source/components'),
+      '@styles': path.join(__dirname, 'source/styles'),
+    };
 
     return config;
   },
 };
+
+module.exports = nextConfig;
