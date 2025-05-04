@@ -1,4 +1,6 @@
-import { NextConfig } from 'next';
+import type { Configuration } from 'webpack';
+
+import type { NextConfig } from 'next';
 
 import path from 'path';
 
@@ -20,15 +22,19 @@ const nextConfig: NextConfig = {
     unoptimized: true,
   },
   output: 'export',
-  webpack: (config) => {
-    config.resolve.alias = {
-      ...(config.resolve.alias || {}),
+  webpack: (configuration: Configuration): Configuration => {
+    if (!configuration.resolve) {
+      configuration.resolve = {};
+    }
+
+    configuration.resolve.alias = {
+      ...(configuration.resolve.alias || {}),
       '@components': path.join(__dirname, 'source/components'),
       '@styles': path.join(__dirname, 'source/styles'),
     };
 
-    return config;
+    return configuration;
   },
 };
 
-module.exports = nextConfig;
+export default nextConfig;
