@@ -1,9 +1,9 @@
 {
   "compilerOptions": {
-    "baseUrl": "./source",
+    "baseUrl": "./",
     "paths": {
-      "@components": ["./source/components"],
-      "@styles": ["./source/styles"]
+      "@components/*": ["./source/components/*"],
+      "@styles/*": ["./source/styles/*"]
     },
     "target": "es2016",
     "module": "commonjs",
